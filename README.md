@@ -11,10 +11,8 @@
 | /                  | Content Cell  |
 | /login             | Content Cell  |
 | /dashboard         | Content Cell  |
-| /request/:id       | Content Cell  |
 | /user/:id          | Content Cell  |
 | /user/:id/history  | Content Cell  |
-| /request/create    | Content Cell  |
 | /admin             | Content Cell  |
 
 
