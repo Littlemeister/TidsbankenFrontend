@@ -4,7 +4,8 @@ import './App.css';
 
 // Own components
 import Header from './components/common/header/Header';
-import MyEmptyComponent from './components/common/MyEmptyComponent';
+import ViewNotFound from './views/common/ViewNotFound';
+import MyView from './views/common/MyView';
 
 const App: React.FC = () => {
     return (
@@ -12,10 +13,10 @@ const App: React.FC = () => {
             <Router>
                 <Header />
                 <Switch>
-                    <Route path="/login" component={MyEmptyComponent} />
-                    <Route path="/2fa" component={MyEmptyComponent} />
-                    <Route exact path="/" component={MyEmptyComponent} />
-                    <Route component={MyEmptyComponent} />
+                    <Route exact path="/" component={MyView} />
+                    <Route path="/login" component={MyView} />
+                    <Route path="/2fa" component={MyView} />
+                    <Route component={ViewNotFound} />
                 </Switch>
             </Router>
         </div>

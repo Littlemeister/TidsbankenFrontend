@@ -1,20 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthContext from '../auth/AuthContext';
 
-type MyProps = {
-    location: any;
-    match: any;
+const MyEmptyComponent = (props: any) => {
+    const auth = useContext(AuthContext);
+    return <p>{auth && auth.token}</p>
 }
 
-export default class MyEmptyComponent extends React.Component<MyProps, any> {
-
-    render() {
-        return (
-            <>
-                <p>MyEmptyComponent</p>
-                <p>My route: {this.props.location.pathname}</p>
-                <p>My rendered route: {this.props.match.path}</p>
-            </>
-        );
-    }
-
-}
+export default MyEmptyComponent;
