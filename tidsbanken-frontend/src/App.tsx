@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 
-/* OWN COMPONENTS */
+// Own components
 import Header from './components/common/header/Header';
 
 const App: React.FC = () => {
