@@ -10,6 +10,7 @@
 | ------------------ | ------------- |
 | /                  | Content Cell  |
 | /login             | Content Cell  |
+| /2fa               | Content Cell  |
 | /dashboard         | Content Cell  |
 | /user/:id          | Content Cell  |
 | /user/:id/history  | Content Cell  |
@@ -34,6 +35,7 @@
 | UserList | /admin | Lists all users. |
 | VacationSettings | /admin | Settings for max period of vacation days. |
 | ImportExportData | /admin | Component for importing / exporting data as JSON. |
+|2FAForm| /2fa | Component for sending 2fa |
 
 
 ### Some Views and Components structure
