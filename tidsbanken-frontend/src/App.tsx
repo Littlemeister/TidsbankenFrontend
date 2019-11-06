@@ -9,20 +9,23 @@ import Header from './components/common/header/Header';
 import ViewNotFound from './views/common/ViewNotFound';
 import MyView from './views/common/MyView';
 import Login from './views/login/Login';
+import Auth from './components/auth/Auth';
 
 const App: React.FC = () => {
     return (
         <div className="App">
-            <Router>
-                <Header />
-                <Login />
-                <Switch>
-                    <Route exact path="/" component={MyView} />
-                    <Route path="/login" component={MyView} />
-                    <Route path="/2fa" component={MyView} />
-                    <Route component={ViewNotFound} />
-                </Switch>
-            </Router>
+            <Auth>
+                <Router>
+                    <Header />
+                    <Switch>
+                        <Route exact path="/" component={Login} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/2fa" component={MyView} />
+                        <Route path="/test" component={MyView} />
+                        <Route component={ViewNotFound} />
+                    </Switch>
+                </Router>
+            </Auth>
         </div>
     );
 }
