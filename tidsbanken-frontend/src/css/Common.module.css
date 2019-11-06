@@ -1,0 +1,47 @@
+@value global: "./global.css";
+@value btn-color from global;
+@value third-text-color from global;
+
+
+/*-----------------------------
+ * Input Fields
+ *-----------------------------*/
+
+.input {
+    display: block;
+    width: 100%;
+    margin: auto;
+    border-radius: 15px;
+    height: 30px;
+    text-indent: 10px;
+}
+
+.input:focus, .input:active {
+    outline: none;
+}
+
+/*-----------------------------
+ * Labels
+ *-----------------------------*/
+
+ .label {
+     padding: 10px 0 5px 10px;
+     display: block;
+ }
+
+/*-----------------------------
+ * Buttons
+ *-----------------------------*/
+
+.button {
+    height: 45px;
+    border-radius: 15px;
+    margin: 20px 0;
+    width: 100%;
+    background-color: btn-color;
+    color: third-text-color;
+}
+
+.button:hover {
+    cursor: pointer;
+}
