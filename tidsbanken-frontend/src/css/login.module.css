@@ -79,3 +79,8 @@
     padding:0px;
     color: error-text-bg-color;
 }
+
+#popOver{
+    margin-top: 5px;
+    width: calc(100% - 51px);
+}
