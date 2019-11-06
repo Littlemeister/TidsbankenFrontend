@@ -18,14 +18,14 @@
     padding:15px;
 }
 
-#login_wrapper input{
+/* #login_wrapper input{
     display: block;
     width: 100%;
     margin: auto;
     border-radius: 15px;
     height: 30px;
     text-indent: 10px;
-}
+} */
 
 #login_wrapper h1:first-child{
     text-align: center;

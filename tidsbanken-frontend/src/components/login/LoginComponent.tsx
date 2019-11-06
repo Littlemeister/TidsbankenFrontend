@@ -13,7 +13,7 @@ type MyState = {
     password: string,
     error: boolean,
     message: string,
-    loggin: boolean
+    success: boolean
 }
 
 export default class LoginComponent extends React.Component<MyProps, MyState>{
@@ -23,7 +23,7 @@ export default class LoginComponent extends React.Component<MyProps, MyState>{
         password: "",
         error: false,
         message: "Error",
-        loggin: false
+        success: false
     }
 
     handleSubmit = (event:any) => {       
@@ -42,19 +42,22 @@ export default class LoginComponent extends React.Component<MyProps, MyState>{
     }
 
     serverRequest = () =>{
-        // axios.get(`https://localhost/data`)
-        // .then(res => {
-        //      this.setState({
-        //             loggin:true
-        //         });
-        // })
-        this.setState({
-            loggin:true
-        });
+        axios.post(`${process.env.REACT_APP_API_URL}`+"/login", 
+            {
+                email: this.state.email, 
+                password: this.state.password
+            }
+        )
+            .then((res: any) => {
+                console.log(res);
+                this.setState({
+                    success: true
+                })
+            })
     }
 
     render(){
-        if(this.state.loggin){
+        if(this.state.success){
             return <Redirect to='/2fa' /> 
         } else {
             return(
