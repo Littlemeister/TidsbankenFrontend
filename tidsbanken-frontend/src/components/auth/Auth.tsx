@@ -22,6 +22,7 @@ export default class Auth extends React.Component<MyProps, MyState> {
         // This is where we do the check to check if the user is authenticated or not
         // If they are, we set their info in the state (which gets provided to any subcomponent)
         // If they are not authenticated we redirect them to /login.
+        console.log("Auth didmount");
         this.setState({token: "hello", authenticated: true});
     }
 
@@ -31,7 +32,7 @@ export default class Auth extends React.Component<MyProps, MyState> {
 
         return (
             <AuthContext.Provider value={this.state}>
-                {children}
+                { children }
             </AuthContext.Provider>
         );
     }

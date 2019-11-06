@@ -15,11 +15,11 @@ const App: React.FC = () => {
         <div className="App">
             <Router>
                 <Header />
-                <Login />
                 <Switch>
-                    <Route exact path="/" component={MyView} />
-                    <Route path="/login" component={MyView} />
+                    <Route exact path="/" component={Login} />
+                    <Route path="/login" component={Login} />
                     <Route path="/2fa" component={MyView} />
+                    <Route path="/test" component={MyView} />
                     <Route component={ViewNotFound} />
                 </Switch>
             </Router>

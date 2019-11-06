@@ -1,9 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../auth/AuthContext';
+import Modal from './modal/Modal';
 
 const MyEmptyComponent = (props: any) => {
     const auth = useContext(AuthContext);
-    return <p>{auth && auth.token}</p>
+
+    const [showModal, setShowModal] = useState(true);
+
+    return (
+        <>
+            <p>{auth && auth.token}</p>
+            {showModal &&
+                <Modal display={showModal} setDisplay={setShowModal}>
+                    <p>Modal</p>
+                </Modal>
+            }
+        </>
+    )
 }
 
 export default MyEmptyComponent;
