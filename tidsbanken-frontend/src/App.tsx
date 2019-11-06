@@ -9,6 +9,7 @@ import Header from './components/common/header/Header';
 import ViewNotFound from './views/common/ViewNotFound';
 import MyView from './views/common/MyView';
 import Login from './views/login/Login';
+import TwoFactorAuth from './views/login/TwoFactorAuth';
 
 const App: React.FC = () => {
     return (
@@ -18,7 +19,7 @@ const App: React.FC = () => {
                 <Switch>
                     <Route exact path="/" component={Login} />
                     <Route path="/login" component={Login} />
-                    <Route path="/2fa" component={MyView} />
+                    <Route path="/2fa" component={TwoFactorAuth} />
                     <Route path="/test" component={MyView} />
                     <Route component={ViewNotFound} />
                 </Switch>

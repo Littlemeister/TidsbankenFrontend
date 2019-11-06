@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../../css/login.module.css';
+import commonStyles from '../../css/Common.module.css';
 import axios from 'axios';
-import { Http2ServerRequest } from 'http2';
 import { Redirect } from 'react-router-dom';
 
 type MyProps = {
@@ -61,10 +61,26 @@ export default class LoginComponent extends React.Component<MyProps, MyState>{
                 <div id={styles.login_wrapper}>
                     <h1>LOGIN</h1>
                     <form onSubmit={this.handleSubmit}>
-                        <label> <p>Email</p> <input name="email" type="email" placeholder="Enter your email" onChange={this.handleChange} value={this.state.email}/> </label>
-                        <label> <p>Password</p> <input name="password" type="password" placeholder="Enter your password" onChange={this.handleChange} value={this.state.password} /> </label>
+                        <label className={commonStyles.label} htmlFor="email">Email</label>
+                        <input 
+                            name="email" 
+                            className={commonStyles.input} 
+                            type="email" 
+                            placeholder="Enter your email" 
+                            onChange={this.handleChange} 
+                            value={this.state.email}
+                        />
+                        <label className={commonStyles.label} htmlFor="password">Password</label>
+                        <input 
+                            name="password" 
+                            className={commonStyles.input} 
+                            type="password" 
+                            placeholder="Enter your password" 
+                            onChange={this.handleChange} 
+                            value={this.state.password} 
+                        />
                         <p id={styles.errorMessage}>{this.state.error && this.state.message}</p>
-                        <label><button id={styles.submit_login} type="submit">Submit</button> </label>
+                        <button className={commonStyles.button} type="submit">Login</button>
                         <button id={styles.forgot_password} type="button">forgot password</button>
                     </form>
                 </div>

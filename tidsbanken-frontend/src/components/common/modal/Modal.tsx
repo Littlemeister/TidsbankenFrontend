@@ -14,7 +14,6 @@ const Modal = (props: any) => {
     } else {
         return (<div></div>)
     }
-        
 }
 
 export default Modal;
