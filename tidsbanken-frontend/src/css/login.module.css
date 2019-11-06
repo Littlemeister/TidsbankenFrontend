@@ -4,6 +4,7 @@
 @value secondare-text-color from global;
 @value third-text-color from global;
 @value bg-h1-color from global;
+@value error-text-bg-color from global;
 
 #login_wrapper{
     width: 70%;
@@ -34,6 +35,8 @@
     margin-left:-15px;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+    padding-top: 5px;
+    padding-bottom:5px;
 }
 
 #forgot_password{
@@ -64,8 +67,15 @@
 #submit_login{
     height: 45px;
     border-radius: 15px;
-    margin-top: 25px;
+    margin-top: 20px;
     width: 100%;
     background-color: btn-color;
     color:third-text-color;
+}
+
+#errorMessage{
+    height:5px;
+    margin:0px;
+    padding:0px;
+    color: error-text-bg-color;
 }
