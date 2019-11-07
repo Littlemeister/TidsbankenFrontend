@@ -5,7 +5,7 @@ import Modal from './modal/Modal';
 const MyEmptyComponent = (props: any) => {
     const auth = useContext(AuthContext);
 
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <>

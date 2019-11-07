@@ -46,3 +46,25 @@
 .button:hover {
     cursor: pointer;
 }
+
+
+/*-----------------------------
+ * Dropdown
+ *-----------------------------*/
+
+.dropdown {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown a {
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.dropdown a:hover {
+    background-color: red;
+}
