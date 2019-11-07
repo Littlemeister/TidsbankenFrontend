@@ -34,6 +34,8 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
             let login = await this.login();
             if (login.status === 200) {
                 this.setState({success: true});
+                let user = await this.user();
+                console.log(user);
             }
         } catch (error) {
             console.log(error);
@@ -56,11 +58,11 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
         } as MyState);
     }
 
-    user = async () => {
+    user = () => {
         return axios(`${process.env.REACT_APP_API_URL}/user`, {method: "GET", withCredentials: true});
     }
 
-    login = async () => {
+    login = () => {
         const { email, password } = this.state;
         return axios(`${process.env.REACT_APP_API_URL}/login`, {method: "POST", withCredentials: true, data: { email, password }});
     }
