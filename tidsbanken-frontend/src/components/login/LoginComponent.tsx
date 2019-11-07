@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../css/login.module.css';
+import styles from '../../css/Login.module.css';
 import commonStyles from '../../css/Common.module.css';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
@@ -30,68 +30,78 @@ export default class LoginComponent extends React.Component<MyProps, MyState>{
 
     }
 
-    handleSubmit = (event:any) => {       
+    handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log("something was submittet: " + this.state.email + this.state.password);
-        this.serverRequest();
+        console.log("Login: " + this.state.email + " " + this.state.password);
+        try {
+            let login = await this.login();
+            if (login.status === 200) {
+                this.setState({success: true});
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    handleChange = (event:any): void => {
-        console.log("password");
+    handleClick = async (event: any) => {
+        try {
+            let user = await this.user();
+            console.log(user);
+        }
+        catch(error) {
+            console.log(error);
+        }
+    }
 
+    handleChange = (event: any): void => {
         this.setState({
             [event.target.name]: event.target.value
         } as MyState);
     }
 
-    serverRequest = () =>{
-        axios.post(`${process.env.REACT_APP_API_URL}`+"/login", 
-            {
-                email: this.state.email, 
-                password: this.state.password
-            }
-        )
-            .then((res: any) => {
-                console.log(res);
-                this.setState({
-                    success: true
-                })
-            })
+    user = async () => {
+        return axios(`${process.env.REACT_APP_API_URL}/user`, {method: "GET", withCredentials: true});
     }
 
-    render(){
+    login = async () => {
+        const { email, password } = this.state;
+        return axios(`${process.env.REACT_APP_API_URL}/login`, {method: "POST", withCredentials: true, data: { email, password }});
+    }
 
-        if(this.state.success){
-            return <Redirect to='/2fa' /> 
+    render() {
+
+        if (this.state.success) {
+            return <Redirect to='/2fa' />
         } else {
-            return(
+            return (
                 <div id={styles.login_wrapper}>
                     <h1>LOGIN</h1>
                     <form onSubmit={this.handleSubmit}>
                         <label className={commonStyles.label} htmlFor="email">Email</label>
-                        <input 
-                            name="email" 
-                            className={commonStyles.input} 
-                            type="email" 
-                            placeholder="Enter your email" 
-                            onChange={this.handleChange} 
+                        <input
+                            name="email"
+                            className={commonStyles.input}
+                            type="email"
+                            placeholder="Enter your email"
+                            onChange={this.handleChange}
                             value={this.state.email}
                         />
                         <label className={commonStyles.label} htmlFor="password">Password</label>
-                        <input 
-                            name="password" 
-                            className={commonStyles.input} 
-                            type="password" 
-                            placeholder="Enter your password" 
-                            onChange={this.handleChange} 
-                            value={this.state.password} 
+                        <input
+                            name="password"
+                            className={commonStyles.input}
+                            type="password"
+                            placeholder="Enter your password"
+                            onChange={this.handleChange}
+                            value={this.state.password}
                         />
                         <p id={styles.errorMessage}>{this.state.error && this.state.message}</p>
 
                         <button className={commonStyles.button} type="submit">Login</button>
-                        
-                        <button id={styles.forgot_password} type="button" onClick={() => this.setState({popOver:!this.state.popOver})}>Forgot password?</button>
+
+                        <button id={styles.forgot_password} type="button" onClick={() => this.setState({ popOver: !this.state.popOver })}>Forgot password?</button>
                         <Popover popoverDislay={this.state.popOver} id={styles.popOver}>Please contact your administrator for a new password</Popover>
+                        <p onClick={this.handleClick}>User</p>
 
                     </form>
                 </div>
