@@ -36,12 +36,6 @@ export default class TwoFactorAuthComponent extends React.Component<MyProps, MyS
     }
 
     serverRequest = () =>{
-        // axios.get(`https://localhost/data`)
-        // .then(res => {
-        //      this.setState({
-        //             loggin:true
-        //         });
-        // })
         this.setState({
             success: true
         });

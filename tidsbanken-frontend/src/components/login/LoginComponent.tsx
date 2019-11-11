@@ -154,30 +154,14 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
         }
     }
 
-    handleClick = async (event: any) => {
-        try {
-            let user = await this.user();
-            console.log(user);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-
     handleChange = (event: any): void => {
         this.setState({
             [event.target.name]: event.target.value
         } as MyState);
     }
 
-    user = async () => {
-        return axios(`${process.env.REACT_APP_API_URL}/user`, {
-            method: "GET",
-            withCredentials: true
-        });
-    }
 
-    login = async () => {
+    login = () => {
         const { email, password } = this.state;
         return axios(`${process.env.REACT_APP_API_URL}/login`, {
             method: "POST",
@@ -224,7 +208,6 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
                         >
                             Please contact your administrator for a new password
                         </Popover>
-                        <p onClick={this.handleClick}>User</p>
 
                     </form>
                 </div>

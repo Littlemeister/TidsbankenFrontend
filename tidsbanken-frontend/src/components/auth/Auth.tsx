@@ -1,40 +1,42 @@
-import React from 'react';
-import AuthContext from './AuthContext';
+import React, {useState, useEffect} from 'react';
+import AuthContext, {auth} from './AuthContext';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 
-type MyProps = {
-    children: any;
+const Auth = (props: any) => {
+
+    const [user, setUser] = useState({});
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState(false);
+
+    const authorize = () => axios(`${process.env.REACT_APP_API_URL}/authorize`, { method: "POST", withCredentials: true });
+
+    useEffect(() => {
+        try {
+            authorize()
+                .then(res => {
+                    if (res.status === 200) {
+                        setSuccess(true);
+                        setUser(res.data as auth)
+                    }
+                })
+        } catch (error) {
+            if (error.response.status === 401) {
+                setSuccess(false);
+                setError(true);
+            }
+        }
+    }, []);
+
+
+    return (
+        <>
+        {success && <AuthContext.Consumer>
+            {props.children}
+        </AuthContext.Consumer>}
+        {error && !success && <Redirect to="/login" />}
+    </>
+    )
 }
 
-type MyState = {
-    token: string;
-    authenticated: boolean;
-}
-
-export default class Auth extends React.Component<MyProps, MyState> {
-
-    // This state must match the type defined in AuthContext
-    state: MyState = {
-        token: "",
-        authenticated: false,
-    }
-
-    componentDidMount() {
-        // This is where we do the check to check if the user is authenticated or not
-        // If they are, we set their info in the state (which gets provided to any subcomponent)
-        // If they are not authenticated we redirect them to /login.
-        console.log("Auth didmount");
-        this.setState({token: "hello", authenticated: true});
-    }
-
-    render() {
-
-        const { children } = this.props;
-
-        return (
-            <AuthContext.Provider value={this.state}>
-                { children }
-            </AuthContext.Provider>
-        );
-    }
-
-}
+export default Auth;

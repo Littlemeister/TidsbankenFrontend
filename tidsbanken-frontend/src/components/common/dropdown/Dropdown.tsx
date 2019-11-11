@@ -6,14 +6,14 @@ const Dropdown = (props: any) => {
 
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const targetRef = useRef(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleClick = (event: any) => {
         setShowDropdown(!showDropdown);
     };
 
     const closeDropDown = (event: any) => {
-        if (event.target !== targetRef.current) {
+        if (dropdownRef && !(dropdownRef as any).current.contains(event.target)) {
             setShowDropdown(false);
         }
     }
@@ -27,11 +27,10 @@ const Dropdown = (props: any) => {
     });
 
     return (
-        <div className={styles.module}>
+        <div className={styles.module} ref={dropdownRef}>
             <span
                 className={styles.target + " " + (showDropdown ? styles.active : "")}
                 onClick={handleClick}
-                ref={targetRef}
             >
                 {props.title}
                 {showDropdown ? <FontAwesomeIcon icon="angle-up" /> : <FontAwesomeIcon icon="angle-down" />}
