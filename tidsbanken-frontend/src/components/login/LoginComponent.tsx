@@ -14,7 +14,6 @@ type MyState = {
     message: string,
     success: boolean,
     popOver: boolean, 
-
     ls_timeLeft: number,
     ls_timeTo: number,
     minutLeft: number,
@@ -22,7 +21,7 @@ type MyState = {
     btnNotDisabled: boolean
 }
 
-export default class LoginComponent extends React.Component<MyProps, MyState>{
+export default class LoginComponent extends React.Component<MyProps, MyState> {
 
     state: MyState = {
         email: "",
@@ -132,7 +131,6 @@ export default class LoginComponent extends React.Component<MyProps, MyState>{
 
     handleSubmit = async (event: any) => {
         event.preventDefault();
-        console.log("Login: " + this.state.email + " " + this.state.password);
         try {
             let login = await this.login();
             console.log(login);
@@ -219,8 +217,13 @@ export default class LoginComponent extends React.Component<MyProps, MyState>{
 
                         <button className={commonStyles.button + " " + styles.submit_login} type="submit" disabled={!this.state.btnNotDisabled}>Login</button>
 
-                        <button id={styles.forgot_password} type="button" onClick={() => this.setState({ popOver: !this.state.popOver })}>Forgot password?</button>
-                        <Popover popoverDislay={this.state.popOver} id={styles.popOver}>Please contact your administrator for a new password</Popover>
+                        <Popover 
+                            trigger="Forgot password?"
+                            triggerId={styles.forgot_password}
+                            id={styles.popOver}
+                        >
+                            Please contact your administrator for a new password
+                        </Popover>
                         <p onClick={this.handleClick}>User</p>
 
                     </form>
