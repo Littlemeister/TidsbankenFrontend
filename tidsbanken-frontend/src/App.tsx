@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AuthRoute from './components/auth/AuthRoute';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import './App.css';
 import {
@@ -13,27 +14,29 @@ import Header from './components/common/header/Header';
 // own Views
 import ViewNotFound from './views/common/ViewNotFound';
 import MyView from './views/common/MyView';
+import Landing from './views/landing/Landing';
 import Login from './views/login/Login';
 import TwoFactorAuth from './views/login/TwoFactorAuth';
+import Logout from './components/logout/Logout';
 
 library.add(
     faAngleDown,
     faAngleUp,
 )
 
-
 const App: React.FC = () => {
     return (
         <div className="App">
             <Router>
-                <Header />
-                <Switch>
-                    <Route exact path="/" component={Login} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/2fa" component={TwoFactorAuth} />
-                    <Route path="/test" component={MyView} />
-                    <Route component={ViewNotFound} />
-                </Switch>
+                    <Header />
+                    <Switch>
+                        <Route exact path="/" component={Landing} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/2fa" component={TwoFactorAuth} />
+                        <AuthRoute path="/test" component={MyView} />
+                        <AuthRoute path="/logout" component={Logout} />
+                        <Route component={ViewNotFound} />
+                    </Switch>
             </Router>
         </div>
     );
