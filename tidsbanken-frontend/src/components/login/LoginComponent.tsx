@@ -23,6 +23,8 @@ type MyState = {
 
 export default class LoginComponent extends React.Component<MyProps, MyState> {
 
+    counter: number = 0;
+
     state: MyState = {
         email: "",
         password: "",
@@ -38,23 +40,27 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
         message: "",
 
         // Time handling
-        ls_timeLeft: 0,        // used for localstorage
-        ls_timeTo: 0,          // used for localstorage
-        minutLeft: 0,       // used for frontend
-        secondsLeft: 0,      // used for frontend
-        btnNotDisabled: true //Disable btn so user's cant send login requests
+        ls_timeLeft: 0,         // used for localstorage
+        ls_timeTo: 0,           // used for localstorage
+        minutLeft: 0,           // used for frontend
+        secondsLeft: 0,         // used for frontend
+        btnNotDisabled: true    //Disable btn so user's cant send login requests
     }
 
     componentDidMount = () => {
-        this.getTimeLeft(); // Check if a localstorage timeTo is set which indicates that a failed login attempt has been made. It also sets a state that has the amount of time left until a loginattempt can be made again.
+        this.getTimeLeft();     // Check if a localstorage timeTo is set which indicates that a failed login attempt has been made. It also sets a state that has the amount of time left until a loginattempt can be made again.
+    }
+    
+    componentWillUnmount(){
+        clearInterval(this.counter);
     }
 
     checkCounter = () => {
         // Set counter to 5 minuts in localstorage and state "ls_timeLeft" if there is none or zero present
         if(localStorage.getItem("timeTo") === "" || localStorage.getItem("timeTo") === null || localStorage.getItem("timeTo") === undefined){
+            this.setState({btnNotDisabled:false})
             this.setCounterInLocalStorage(); // Set counter in localStorage
             this.timer(); //Start timer for frontend
-            this.setState({btnNotDisabled:false})
         } else { // If counter in localstorage already exsist and is not zero - update the counter
             this.getTimeLeft();
         }
@@ -62,11 +68,7 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
 
     // Sets localstorage AND state to a date that is 5 minuts from now
     setCounterInLocalStorage = () => {
-        const timeNow = new Date().getTime();
         const timeTo = (new Date().getTime() + (5*60000));
-        var distance = timeTo - timeNow;
-        var minutes = this.getMinuts(distance);
-
         localStorage.setItem("timeTo", timeTo.toString());
     }
 
@@ -75,10 +77,7 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
             const to = Number(localStorage.getItem("timeTo"));
             const now = (new Date().getTime());
             const timeDistance = to - now;
-            console.log("this.state.secondsLeft: ");
-            console.log(this.state.secondsLeft);
             
-
             if(timeDistance > 0){
                 this.timer();
                 this.setState({
@@ -92,10 +91,10 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
                     btnNotDisabled:true
                 });
                 localStorage.removeItem("timeTo");
-                console.log("timeTo in Localstorage was removed");
+                //console.log("timeTo in Localstorage was removed");
             }   
         } else {
-            console.log("No localstorage timeTo found");
+            //console.log("No localstorage timeTo found");
         }
     }
 
@@ -104,29 +103,35 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
     }
 
     timer(){
-        // Update the count down every 1 second
-        var counter = setInterval(() => {
-            var now = new Date().getTime();  // Get today's date and time
-            var distance = Number(localStorage.getItem("timeTo")) - now; // Find the distance between now and the count down date
-        
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            var secondsLeft = distance - (minutes * 60);
-            console.log("minute " + minutes);
-            console.log("secondsleft " + seconds);
-
-            if (distance < 0) {
-                clearInterval(counter);
-            } else {
-                this.setState({
-                    minutLeft: minutes,       // used for frontend
-                    secondsLeft: seconds,      // used for frontend
-                    message: "You have made 5 attempts please try again in " + this.state.minutLeft + " minutes and " + this.state.secondsLeft + " seconds",
-                })
-                console.log(this.state.secondsLeft);
-            }          
-
-        }, 1000);
+        // Update the count down every 1 sec
+        if(this.counter === 0) {
+            this.counter = window.setInterval(() => {
+                const now = new Date().getTime();  // Get today's date and time
+                const distance = Number(localStorage.getItem("timeTo")) - now; // Find the distance between now and the count down date
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                if (distance <= 0) {
+                    window.clearInterval(this.counter);
+                    localStorage.removeItem("timeTo");
+                    this.counter = 0;
+                    this.setState({
+                        message: "",
+                        minutLeft: 0,       // used for frontend
+                        secondsLeft: 0,      // used for frontend
+                        btnNotDisabled:true
+                    })
+                } else {
+                    this.setState({
+                        minutLeft: minutes,       // used for frontend
+                        secondsLeft: seconds,      // used for frontend
+                        message: "You have made 5 attempts please try again in " + this.state.minutLeft + " minutes and " + this.state.secondsLeft + " seconds",
+                    })
+                    console.log(this.state.secondsLeft);
+                }          
+    
+            }, 1000);
+        }
+             
     }
 
     handleSubmit = async (event: any) => {
@@ -140,7 +145,7 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
         } catch (error) {
             this.setState({ error: true });
             console.log(error.response.data['numOfAttemptedLogins']);
-            if(error.response.data.hasOwnProperty('timeOut') || error.response.data['numOfAttemptedLogins'] === 5){ 
+            if(error.response.data.hasOwnProperty('timeOut') || error.response.data['numOfAttemptedLogins'] >= 5){ 
                 this.setState({ 
                     message: "You have made 5 attempts please try again in " + this.state.secondsLeft + " minutes" 
                 });

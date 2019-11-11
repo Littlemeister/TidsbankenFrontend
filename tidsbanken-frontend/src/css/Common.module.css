@@ -1,6 +1,7 @@
 @value global: "./global.css";
 @value btn-color from global;
 @value third-text-color from global;
+@value disabled-btn-bg-color from global;
 
 
 /*-----------------------------
@@ -49,6 +50,10 @@
 
 button:focus {
     outline:0;
+}
+
+button:disabled {
+    background-color: disabled-btn-bg-color;
 }
 
 /*-----------------------------
