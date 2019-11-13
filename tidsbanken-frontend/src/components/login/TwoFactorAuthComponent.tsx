@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import AuthContext from '../auth/AuthContext';
 
 const TwoFactorAuthComponent = (props: any) => {
-    const auth = useContext(AuthContext);
+    const {user, setUser} = useContext(AuthContext);
     let inputRef = useRef<HTMLInputElement>(null);
 
     const [token, setToken] = useState("");
@@ -32,8 +32,8 @@ const TwoFactorAuthComponent = (props: any) => {
         try {
             let login = await login2fa();
             if (login.status === 200) {
-                auth.setUser(login.data);
-                console.log(auth);
+                setUser(login.data);
+                console.log(user);
                 setSuccess(true);
             }
         } catch (error) {

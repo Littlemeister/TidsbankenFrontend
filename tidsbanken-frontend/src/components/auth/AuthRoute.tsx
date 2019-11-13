@@ -4,14 +4,14 @@ import { Redirect } from 'react-router-dom';
 
 const AuthRoute = (props: any) => {
 
-    const auth = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { component: Component } = props;
 
-    console.log(auth);
+    console.log(user);
 
     return (
         <>
-            {auth.name ? <Component  {...props} /> : <Redirect to="/login" />}
+            {user && user.name ? <Component  {...props} /> : <Redirect to="/login" />}
         </>
     )
 }
