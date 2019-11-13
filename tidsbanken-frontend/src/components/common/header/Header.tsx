@@ -15,6 +15,7 @@ const Header = (props: any) => {
                 <Link to="/login">Login</Link>
                 <Link to="/2fa">2FA</Link>
                 <Link to="/test">Test</Link>
+                <Link to="/dashboard">Dashboard</Link>
 
                 <Dropdown title={auth.name || "Menu"}>
                     <ul className={commonStyles.dropdown}>
