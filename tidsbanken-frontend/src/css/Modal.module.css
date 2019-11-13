@@ -10,7 +10,7 @@
     top:0;
     left:0;
     box-sizing: border-box;
-    padding: 20%;
+    display: grid;
 }
 
 .module:hover, .closeButton:hover {
@@ -23,14 +23,16 @@
 
 .content {
     background-color: white;
-    height: 100%;
-    width: 100%;
+    height: 50%;
+    width: 50%;
     position: relative;
     box-sizing: border-box;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 1px 1px 16px -7px #000;
     overflow-y: auto;
+    align-self: center;
+    justify-self: center;
 }
 
 .content p {
