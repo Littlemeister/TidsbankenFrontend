@@ -1,14 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../auth/AuthContext';
 import styles from '../../../css/Header.module.css';
 import commonStyles from '../../../css/Common.module.css';
 import Dropdown from '../dropdown/Dropdown';
-import Notification from '../notification/Notification';
+import Pusher from 'pusher-js';
 
 const Header = (props: any) => {
 
     const auth = useContext(AuthContext);
+    var [liArray, setLiArray] = useState<any[]>([]);    // Used for li html elemnts
+    const [update, setUpdate] = useState<any>({});      // Used for li html elemnts
+
+    // Setup push notification
+    var pusher = new Pusher('4c6550e4e866a013a371', {
+        cluster: 'eu',
+        forceTLS: true
+    });
+
+    useEffect(() => {
+        var channel = pusher.subscribe('notifications');
+
+        channel.bind('user_update', function(data: any) {
+            setUpdate(data);
+        });
+
+        channel.bind('pusher:subscription_succeeded', function(members) {
+            console.log('successfully subscribed! - Pusher');
+        });
+    }, [])
+
+    useEffect(() => {
+        getNotification();
+    },[update]);
+
+    function getNotification(){
+        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+        if(update.userId){
+            const liElement = <li className={update.status ? "good" : "bad"}> {update.userId}</li>
+            setLiArray(liArray.concat(liElement));
+        }  
+    }
 
     return (
         <header className={styles.module}>
@@ -27,7 +62,7 @@ const Header = (props: any) => {
                 </Dropdown>
 
                 <Dropdown title={'Notifications'}>
-                    <Notification></Notification>
+                    <ul>{liArray}</ul>
                 </Dropdown>
             </header>
     )
