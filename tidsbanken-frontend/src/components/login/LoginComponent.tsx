@@ -176,7 +176,6 @@ export default class LoginComponent extends React.Component<MyProps, MyState> {
     }
 
     render() {
-
         if (this.state.success) {
             return <Redirect to='/2fa' />
         } else {

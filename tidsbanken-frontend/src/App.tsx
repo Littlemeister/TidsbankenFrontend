@@ -32,7 +32,7 @@ const App: React.FC = () => {
                     <Switch>
                         <Route exact path="/" component={Landing} />
                         <Route path="/login" component={Login} />
-                        <Route path="/2fa" component={TwoFactorAuth} />
+                        <Route path="/2fa" component={TwoFactorAuth} />z
                         <AuthRoute path="/test" component={MyView} />
                         <AuthRoute path="/logout" component={Logout} />
                         <Route component={ViewNotFound} />

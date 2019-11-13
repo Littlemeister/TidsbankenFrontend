@@ -4,6 +4,7 @@ import AuthContext from '../../auth/AuthContext';
 import styles from '../../../css/Header.module.css';
 import commonStyles from '../../../css/Common.module.css';
 import Dropdown from '../dropdown/Dropdown';
+import Notification from '../notification/Notification';
 
 const Header = (props: any) => {
 
@@ -23,6 +24,10 @@ const Header = (props: any) => {
                         <li><Link to="/2fa">2fa</Link></li>
                         <li><Link to="/logout">Log out</Link></li>
                     </ul>
+                </Dropdown>
+
+                <Dropdown title={'Notifications'}>
+                    <Notification></Notification>
                 </Dropdown>
             </header>
     )
