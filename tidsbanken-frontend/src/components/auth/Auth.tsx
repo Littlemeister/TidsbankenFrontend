@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import AuthContext, { auth } from './AuthContext';
+import AuthContext, { userType } from './AuthContext';
 import axios from 'axios';
 
 const Auth = (props: any) => {
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState<userType>({} as userType);
 
     const authorize = () => axios(`${process.env.REACT_APP_API_URL}/authorize`, { method: "POST", withCredentials: true });
 
-    const setUserInfo = (user: any) => {
-        let newUser = {...user, setUser: setUserInfo}
-        console.log("setting user", newUser);
-        setUser(newUser);
+    const setUserInfo = (user: userType) => {
+        setUser(user);
     }
 
     useEffect(() => {
@@ -19,12 +17,10 @@ const Auth = (props: any) => {
             authorize()
                 .then(res => {
                     if (res.status === 200) {
-                        const user = {...res.data, setUser: setUserInfo};
-                        setUser(user);
+                        setUser(res.data as userType);
                     }
                 })
         } catch (error) {
-            setUser({...user, setUser: setUserInfo})
             console.log(error);
         }
     }, []);
@@ -32,7 +28,7 @@ const Auth = (props: any) => {
 
     return (
         <>
-            {<AuthContext.Provider value={user}>
+            {<AuthContext.Provider value={{user, setUser: setUserInfo}}>
                 {props.children}
             </AuthContext.Provider>}
         </>
