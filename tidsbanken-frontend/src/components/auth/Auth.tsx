@@ -1,41 +1,41 @@
-import React, {useState, useEffect} from 'react';
-import AuthContext, {auth} from './AuthContext';
-import { Redirect } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import AuthContext, { auth } from './AuthContext';
 import axios from 'axios';
 
 const Auth = (props: any) => {
 
     const [user, setUser] = useState({});
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(false);
 
     const authorize = () => axios(`${process.env.REACT_APP_API_URL}/authorize`, { method: "POST", withCredentials: true });
+
+    const setUserInfo = (user: any) => {
+        let newUser = {...user, setUser: setUserInfo}
+        console.log("setting user", newUser);
+        setUser(newUser);
+    }
 
     useEffect(() => {
         try {
             authorize()
                 .then(res => {
                     if (res.status === 200) {
-                        setSuccess(true);
-                        setUser(res.data as auth)
+                        const user = {...res.data, setUser: setUserInfo};
+                        setUser(user);
                     }
                 })
         } catch (error) {
-            if (error.response.status === 401) {
-                setSuccess(false);
-                setError(true);
-            }
+            setUser({...user, setUser: setUserInfo})
+            console.log(error);
         }
     }, []);
 
 
     return (
         <>
-        {success && <AuthContext.Consumer>
-            {props.children}
-        </AuthContext.Consumer>}
-        {error && !success && <Redirect to="/login" />}
-    </>
+            {<AuthContext.Provider value={user}>
+                {props.children}
+            </AuthContext.Provider>}
+        </>
     )
 }
 
