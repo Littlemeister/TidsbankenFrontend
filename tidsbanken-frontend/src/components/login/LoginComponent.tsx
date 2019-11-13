@@ -77,6 +77,7 @@ const LoginComponent = (props: any) => {
     const setCounterInLocalStorage = () => {
         const timeTo = new Date().getTime() + (5 * 60000);
         localStorage.setItem("timeTo", timeTo.toString());
+
     }
 
     const handleSubmit = async (event: any) => {

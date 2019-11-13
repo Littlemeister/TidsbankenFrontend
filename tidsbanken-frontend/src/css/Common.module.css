@@ -1,6 +1,7 @@
 @value global: "./global.css";
 @value btn-color from global;
 @value third-text-color from global;
+@value disabled-btn-bg-color from global;
 
 
 /*-----------------------------
@@ -54,7 +55,7 @@
 .button:disabled,
 .button[disabled]{
   border: 1px solid #999999;
-  background-color: #cccccc;
+  background-color: disabled-btn-bg-color;
   color: #666666;
   cursor: default;
 }

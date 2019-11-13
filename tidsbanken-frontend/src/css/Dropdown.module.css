@@ -29,8 +29,8 @@
     background-color: #273642;
     color: white;
     border-radius: 0 0 2px 2px;
-    width: 100%;
     max-height: 50vh;
+    min-width: 100%;
     overflow: auto;
     top: 30px;
     box-shadow: 0px 3px 5px -3px #6a6a6a;
@@ -39,4 +39,10 @@
 
 .items a {
     color: white;
+}
+
+.items ul{
+    list-style-type: none;
+    padding-left: 15px;
+    padding-right:15px;
 }

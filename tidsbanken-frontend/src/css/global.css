@@ -7,4 +7,5 @@
 @value modal-bg-color: hsla(0, 0%, 37.6%, 0.7);
 @value popover-bg-color: hsla(0, 0%, 37.6%, 1);
 @value box-shadow: 1px 1px 1px 1px solid black;
+@value disabled-btn-bg-color: grey;
 
