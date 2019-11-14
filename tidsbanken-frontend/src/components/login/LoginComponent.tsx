@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import styles from '../../css/Login.module.css';
 import commonStyles from '../../css/Common.module.css';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Popover from '../common/popover/Popover';
 import AuthContext from '../auth/AuthContext';
+import API from '../../api/API';
 
 const LoginComponent = (props: any) => {
     const { user, setUser } = useContext(AuthContext);
@@ -85,7 +85,7 @@ const LoginComponent = (props: any) => {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         try {
-            let response = await login();
+            let response = await API.login(input.email, input.password);
             if (response.status === 200) {
                 setUser(response.data);
                 setSuccess(true);
@@ -114,15 +114,6 @@ const LoginComponent = (props: any) => {
 
     const handleChange = (event: any) => {
         setInput({ ...input, [event.target.name]: event.target.value });
-    }
-
-    const login = () => {
-        const { email, password } = input;
-        return axios(`${process.env.REACT_APP_API_URL}/login`, {
-            method: "POST",
-            withCredentials: true,
-            data: { email, password }
-        });
     }
 
     return (

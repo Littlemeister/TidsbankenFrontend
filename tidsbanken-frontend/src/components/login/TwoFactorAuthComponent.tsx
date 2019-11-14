@@ -1,9 +1,9 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import styles from '../../css/TwoFactorAuth.module.css';
 import commonStyles from '../../css/Common.module.css';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import AuthContext from '../auth/AuthContext';
+import API from '../../api/API';
 
 const TwoFactorAuthComponent = (props: any) => {
     const {user, setUser} = useContext(AuthContext);
@@ -19,18 +19,10 @@ const TwoFactorAuthComponent = (props: any) => {
         (inputRef.current as any).focus();
     }, [])
 
-    const login2fa = () => {
-        return axios(`${process.env.REACT_APP_API_URL}/login2fa`, {
-            method: "POST",
-            withCredentials: true,
-            data: { "password2fa": token }
-        });
-    }
-
     const handleSubmit = async (event: any) => {
         event.preventDefault();
         try {
-            let login = await login2fa();
+            let login = await API.login2fa(token);
             if (login.status === 200) {
                 setUser(login.data);
                 setSuccess(true);
