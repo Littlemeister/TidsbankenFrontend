@@ -43,7 +43,6 @@ const App: React.FC = () => {
                         <Route path="/2fa" component={TwoFactorAuth} />
                         <AuthRoute path="/test" component={MyView} />
                         <AuthRoute path="/profil" component={ProfileView} />
-                        <Route path="/test" component={MyView} />
                         <Route path="/dashboard" component={Dashboard} />
                         <AuthRoute path="/logout" component={Logout} />
                         <Route component={ViewNotFound} />
