@@ -8,7 +8,7 @@ import Pusher from 'pusher-js';
 
 const Header = (props: any) => {
 
-    const auth = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     var [liArray, setLiArray] = useState<any[]>([]);    // Used for li html elemnts
     const [update, setUpdate] = useState<any>({});      // Used for li html elemnts
 
@@ -51,8 +51,9 @@ const Header = (props: any) => {
                 <Link to="/login">Login</Link>
                 <Link to="/2fa">2FA</Link>
                 <Link to="/test">Test</Link>
+                <Link to="/dashboard">Dashboard</Link>
 
-                <Dropdown title={auth.name || "Menu"}>
+                <Dropdown title={ (user && user.name) || "Menu" }>
                     <ul className={commonStyles.dropdown}>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/login">Login</Link></li>

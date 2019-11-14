@@ -48,12 +48,16 @@
     cursor: pointer;
 }
 
-button:focus {
+.button:focus {
     outline:0;
 }
 
-button:disabled {
-    background-color: disabled-btn-bg-color;
+.button:disabled,
+.button[disabled]{
+  border: 1px solid #999999;
+  background-color: disabled-btn-bg-color;
+  color: #666666;
+  cursor: default;
 }
 
 /*-----------------------------

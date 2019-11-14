@@ -3,13 +3,13 @@ import AuthContext from '../auth/AuthContext';
 import Modal from './modal/Modal';
 
 const MyEmptyComponent = (props: any) => {
-    const auth = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const [showModal, setShowModal] = useState(false);
 
     return (
         <>
-            <p>{auth && auth.name}</p>
+            <p>{user && user.name}</p>
             {showModal &&
                 <Modal display={showModal} setDisplay={setShowModal}>
                     <p>Modal</p>

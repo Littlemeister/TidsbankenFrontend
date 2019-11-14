@@ -1,20 +1,18 @@
 import React from 'react';
 
-export type auth = {
-        name: string,
-        lastName: string,
-        email: string,
-        profilePic: string,
-        salt: string,
-        hash: string,
-        isAdmin: number,
-        twoFacAut: number,
-        createdAt: string,
-        updatedAt: string,
-        userId: number,
+export type authType = {
+    user: userType,
+    setUser: any,
 }
 
-const AuthContext = React.createContext<Partial<auth>>({});
+export type userType = {
+    name: string,
+    lastName: string,
+    isAdmin: number,
+    twoFacAut: number
+}
+
+const AuthContext = React.createContext<Partial<authType>>({});
 AuthContext.displayName = "AuthContext";
 
 export default AuthContext;

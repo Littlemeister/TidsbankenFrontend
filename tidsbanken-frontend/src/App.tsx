@@ -1,11 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AuthRoute from './components/auth/AuthRoute';
+import Auth from './components/auth/Auth';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import './App.css';
 import {
     faAngleDown,
     faAngleUp,
+    faCaretLeft,
+    faCaretRight,
 } from '@fortawesome/free-solid-svg-icons';
 
 // Own components
@@ -18,17 +21,21 @@ import ProfileView from './views/profil/ProfileView';
 import Landing from './views/landing/Landing';
 import Login from './views/login/Login';
 import TwoFactorAuth from './views/login/TwoFactorAuth';
+import Dashboard from './views/dashboard/Dashboard';
 import Logout from './components/logout/Logout';
 
 library.add(
     faAngleDown,
     faAngleUp,
+    faCaretLeft,
+    faCaretRight
 )
 
 const App: React.FC = () => {
     return (
         <div className="App">
-            <Router>
+            <Auth>
+                <Router>
                     <Header />
                     <Switch>
                         <Route exact path="/" component={Landing} />
@@ -36,10 +43,13 @@ const App: React.FC = () => {
                         <Route path="/2fa" component={TwoFactorAuth} />
                         <AuthRoute path="/test" component={MyView} />
                         <AuthRoute path="/profil" component={ProfileView} />
+                        <Route path="/test" component={MyView} />
+                        <Route path="/dashboard" component={Dashboard} />
                         <AuthRoute path="/logout" component={Logout} />
                         <Route component={ViewNotFound} />
                     </Switch>
-            </Router>
+                </Router>
+            </Auth>
         </div>
     );
 }
