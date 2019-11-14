@@ -7,10 +7,12 @@ import Popover from '../common/popover/Popover';
 import AuthContext from '../auth/AuthContext';
 
 const LoginComponent = (props: any) => {
-    const auth = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     let inputRef = useRef<HTMLInputElement>(null);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn2fa, setLoggedIn2fa] = useState(false);
     const [message, setMessage] = useState("");
     const [btnDisabled, setBtnDisabled] = useState(false);
     const [input, setInput] = useState({
@@ -24,12 +26,12 @@ const LoginComponent = (props: any) => {
 
     useEffect(() => {
         getTimeLeft();
-        (inputRef.current as any).focus(); 
+        (inputRef.current as any).focus();
     }, []);
 
     useEffect(() => {
-        console.log(auth);
-    }, [auth])
+        console.log(user);
+    }, [user])
 
     useEffect(() => {
         setMessage(`You have made 5 attempts please try again in ${ls.minutesLeft} minutes and ${ls.secondsLeft} seconds`);
@@ -85,8 +87,9 @@ const LoginComponent = (props: any) => {
         try {
             let response = await login();
             if (response.status === 200) {
-                auth.setUser(response.data);
+                setUser(response.data);
                 setSuccess(true);
+                setLoggedIn(true);
             }
         } catch (error) {
             if (error.response.status === 401 || error.response.status === 504) {
@@ -104,6 +107,7 @@ const LoginComponent = (props: any) => {
             // If TwoFactorAuthentication
             if (error.response.status === 418) {
                 setSuccess(true);
+                setLoggedIn2fa(true);
             }
         }
     }
@@ -123,43 +127,43 @@ const LoginComponent = (props: any) => {
 
     return (
         <>
-            {success ? <Redirect to="/2fa" /> :
-                <div id={styles.login_wrapper}>
-                    <h1>LOGIN</h1>
-                    <form onSubmit={handleSubmit}>
-                        <label className={commonStyles.label} htmlFor="email">Email</label>
-                        <input
-                            name="email"
-                            className={commonStyles.input}
-                            type="email"
-                            placeholder="Enter your email"
-                            onChange={handleChange}
-                            value={input.email}
-                            ref={inputRef}
-                        />
-                        <label className={commonStyles.label} htmlFor="password">Password</label>
-                        <input
-                            name="password"
-                            className={commonStyles.input}
-                            type="password"
-                            placeholder="Enter your password"
-                            onChange={handleChange}
-                            value={input.password}
-                        />
-                        <p id={styles.errorMessage}>{error && message}</p>
+            {success && loggedIn ? <Redirect to="/dashboard" /> : ""}
+            {success && loggedIn2fa ? <Redirect to="/2fa" /> : ""}
+            <div id={styles.login_wrapper}>
+                <h1>LOGIN</h1>
+                <form onSubmit={handleSubmit}>
+                    <label className={commonStyles.label} htmlFor="email">Email</label>
+                    <input
+                        name="email"
+                        className={commonStyles.input}
+                        type="email"
+                        placeholder="Enter your email"
+                        onChange={handleChange}
+                        value={input.email}
+                        ref={inputRef}
+                    />
+                    <label className={commonStyles.label} htmlFor="password">Password</label>
+                    <input
+                        name="password"
+                        className={commonStyles.input}
+                        type="password"
+                        placeholder="Enter your password"
+                        onChange={handleChange}
+                        value={input.password}
+                    />
+                    <p id={styles.errorMessage}>{error && message}</p>
 
-                        <button className={commonStyles.button + " " + styles.submit_login} type="submit" disabled={btnDisabled}>Login</button>
+                    <button className={commonStyles.button + " " + styles.submit_login} type="submit" disabled={btnDisabled}>Login</button>
 
-                        <Popover
-                            trigger="Forgot password?"
-                            triggerId={styles.forgot_password}
-                            id={styles.popOver}
-                        >
-                            Please contact your administrator for a new password
+                    <Popover
+                        trigger="Forgot password?"
+                        triggerId={styles.forgot_password}
+                        id={styles.popOver}
+                    >
+                        Please contact your administrator for a new password
                         </Popover>
-                    </form>
-                </div>
-            }
+                </form>
+            </div>
         </>
     )
 }
