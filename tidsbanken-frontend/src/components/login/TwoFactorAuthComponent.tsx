@@ -6,7 +6,7 @@ import AuthContext from '../auth/AuthContext';
 import API from '../../api/API';
 
 const TwoFactorAuthComponent = (props: any) => {
-    const {user, setUser} = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
     let inputRef = useRef<HTMLInputElement>(null);
 
     const [token, setToken] = useState("");
@@ -30,6 +30,7 @@ const TwoFactorAuthComponent = (props: any) => {
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setError(true);
+                setMessage(`Something went wrong`);
             }
         }
     }

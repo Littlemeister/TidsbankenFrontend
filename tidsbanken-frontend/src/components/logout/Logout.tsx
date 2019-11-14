@@ -4,7 +4,7 @@ import API from '../../api/API';
 import AuthContext from '../auth/AuthContext';
 
 const Logout = (props: any) => {
-    const {setUser } = useContext(AuthContext);
+    const { setUser } = useContext(AuthContext);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
@@ -18,7 +18,7 @@ const Logout = (props: any) => {
                     setError(true);
                 }
             })
-    }, []);
+    }, [setUser]);
 
     return (
         <>

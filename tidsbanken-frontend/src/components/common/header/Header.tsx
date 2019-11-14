@@ -28,22 +28,23 @@ const Header = (props: any) => {
         channel.bind('pusher:subscription_succeeded', function (members) {
             console.log('successfully subscribed! - Pusher');
         });
-    }, [])
+    }, [pusher])
 
     useEffect(() => {
-        getNotification();
-    }, [update]);
-
-    function getNotification() {
-        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-        // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
-        if (update.userId) {
-            const liElement = <li className={update.status ? "good" : "bad"}> {update.userId}</li>
-            setLiArray(liArray.concat(liElement));
+        function getNotification() {
+            // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+            // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+            // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+            // DONT FORGET TO UPDATE USERID CONTROLLEN !!!!!)!&)!(/%!!)
+            if (update.userId) {
+                const liElement = <li className={update.status ? "good" : "bad"}> {update.userId}</li>
+                setLiArray(liArray.concat(liElement));
+            }
         }
-    }
+        getNotification();
+    }, [update, liArray]);
+
+    
 
     const loggedIn = user && user.hasOwnProperty("name") && user.hasOwnProperty("isAdmin") && user.isAdmin === 0;
     const loggedInAdmin = user && user.hasOwnProperty("isAdmin") && user.isAdmin === 1;
