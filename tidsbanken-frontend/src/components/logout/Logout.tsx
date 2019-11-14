@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import API from '../../api/API';
+import AuthContext from '../auth/AuthContext';
 
 const Logout = (props: any) => {
-
+    const {setUser } = useContext(AuthContext);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
@@ -11,6 +12,7 @@ const Logout = (props: any) => {
         API.logout()
             .then(res => {
                 if (res.status === 200) {
+                    setUser({});
                     setSuccess(true);
                 } else {
                     setError(true);
