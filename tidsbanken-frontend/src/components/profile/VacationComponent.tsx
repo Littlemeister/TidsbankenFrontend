@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import AuthContext from '../auth/AuthContext';
 import Modal from './modal/Modal';
 
-const MyEmptyComponent = (props: any) => {
+const VacationComponent = (props: any) => {
     const { user } = useContext(AuthContext);
 
     const [showModal, setShowModal] = useState(false);
@@ -19,4 +19,4 @@ const MyEmptyComponent = (props: any) => {
     )
 }
 
-export default MyEmptyComponent;
+export default VacationComponent;

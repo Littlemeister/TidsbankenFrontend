@@ -47,25 +47,25 @@ const Header = (props: any) => {
 
     return (
         <header className={styles.module}>
-                <Link to="/">Home</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/2fa">2FA</Link>
-                <Link to="/test">Test</Link>
-                <Link to="/dashboard">Dashboard</Link>
+            <Link to="/">Home</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/2fa">2FA</Link>
+            <Link to="/test">Test</Link>
+            <Link to="/dashboard">Dashboard</Link>
 
-                <Dropdown title={ (user && user.name) || "Menu" }>
-                    <ul className={commonStyles.dropdown}>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/2fa">2fa</Link></li>
-                        <li><Link to="/logout">Log out</Link></li>
-                    </ul>
-                </Dropdown>
+            <Dropdown title={ (user && user.name) || "Menu" }>
+                <ul className={commonStyles.dropdown}>
+                    <li><Link to="/profile">Home</Link></li>
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/2fa">2fa</Link></li>
+                    <li><Link to="/logout">Log out</Link></li>
+                </ul>
+            </Dropdown>
 
-                <Dropdown title={'Notifications'}>
-                    <ul>{liArray}</ul>
-                </Dropdown>
-            </header>
+            <Dropdown title={'Notifications'}>
+                <ul>{liArray}</ul>
+            </Dropdown>
+        </header>
     )
 }
 

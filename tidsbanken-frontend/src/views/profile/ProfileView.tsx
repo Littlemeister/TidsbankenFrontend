@@ -5,12 +5,16 @@ type MyProps = { }
 
 type MyState = { }
 
-const ProfileView: React.FC<{location: any, match: any}> = (props) => (
-    <>
-        <p>Profile</p>
-        <MyEmptyComponent />
-    </>
-)
+const ProfileView = (props:any) => {
+    return(
+        <div>
+            <p>ProfileView</p>
+            <MyEmptyComponent />
+        </div>  
+    )
+}
+    
+
 
 export default ProfileView;
 

@@ -17,7 +17,7 @@ import Header from './components/common/header/Header';
 // own Views
 import ViewNotFound from './views/common/ViewNotFound';
 import MyView from './views/common/MyView';
-import ProfileView from './views/profil/ProfileView';
+import ProfileView from './views/profile/ProfileView';
 import Landing from './views/landing/Landing';
 import Login from './views/login/Login';
 import TwoFactorAuth from './views/login/TwoFactorAuth';
@@ -42,7 +42,7 @@ const App: React.FC = () => {
                         <Route path="/login" component={Login} />
                         <Route path="/2fa" component={TwoFactorAuth} />
                         <AuthRoute path="/test" component={MyView} />
-                        <AuthRoute path="/profil" component={ProfileView} />
+                        <AuthRoute path="/profile" component={ProfileView} />
                         <Route path="/dashboard" component={Dashboard} />
                         <AuthRoute path="/logout" component={Logout} />
                         <Route component={ViewNotFound} />
