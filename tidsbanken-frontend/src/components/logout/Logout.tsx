@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
+import API from '../../api/API';
 
 const Logout = (props: any) => {
 
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState(false);
 
-    const logout = () => axios(`${process.env.REACT_APP_API_URL}/logout`, {method: "POST", withCredentials: true});
-
     useEffect(() => {
-        logout()
+        API.logout()
             .then(res => {
                 if (res.status === 200) {
                     setSuccess(true);

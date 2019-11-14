@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import AuthContext, { userType } from './AuthContext';
-import axios from 'axios';
+import API from '../../api/API';
 
 const Auth = (props: any) => {
 
     const [user, setUser] = useState<userType>({} as userType);
-
-    const authorize = () => axios(`${process.env.REACT_APP_API_URL}/authorize`, { method: "POST", withCredentials: true });
 
     const setUserInfo = (user: userType) => {
         setUser(user);
@@ -14,7 +12,7 @@ const Auth = (props: any) => {
 
     useEffect(() => {
         try {
-            authorize()
+            API.authorize()
                 .then(res => {
                     if (res.status === 200) {
                         setUser(res.data as userType);
