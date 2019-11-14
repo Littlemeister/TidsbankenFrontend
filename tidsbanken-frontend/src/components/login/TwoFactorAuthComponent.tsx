@@ -33,7 +33,6 @@ const TwoFactorAuthComponent = (props: any) => {
             let login = await login2fa();
             if (login.status === 200) {
                 setUser(login.data);
-                console.log(user);
                 setSuccess(true);
             }
         } catch (error) {
