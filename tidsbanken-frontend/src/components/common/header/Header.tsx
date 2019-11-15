@@ -12,23 +12,26 @@ const Header = (props: any) => {
     const [liArray, setLiArray] = useState<any[]>([]);    // Used for li html elements
     const [update, setUpdate] = useState<any>({});      // Used for li html elements
 
-    // Setup push notification
-    const pusher = new Pusher('4c6550e4e866a013a371', {
-        cluster: 'eu',
-        forceTLS: true
-    });
+    let pusher: any;
+    let channel: any;
 
     useEffect(() => {
-        let channel = pusher.subscribe('notifications');
+        pusher = new Pusher('4c6550e4e866a013a371', {
+            cluster: 'eu',
+            forceTLS: true
+        });
+
+        channel = pusher.subscribe('notifications');
 
         channel.bind('user_update', function (data: any) {
             setUpdate(data);
         });
 
-        channel.bind('pusher:subscription_succeeded', function (members) {
+        channel.bind('pusher:subscription_succeeded', function (members: any) {
             console.log('successfully subscribed! - Pusher');
         });
-    }, [pusher])
+
+    }, [])
 
     useEffect(() => {
         function getNotification() {
@@ -42,7 +45,7 @@ const Header = (props: any) => {
             }
         }
         getNotification();
-    }, [update, liArray]);
+    }, [update]);
 
     
 
