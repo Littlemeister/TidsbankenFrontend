@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../auth/AuthContext';
-import commonStyles from '../../css/profile/VacationComponent.module.css';
+import commonStyles from '../../css/profile/SettingComponent.module.css';
 
 const VacationComponent = (props: any) => {
     const { user } = useContext(AuthContext);

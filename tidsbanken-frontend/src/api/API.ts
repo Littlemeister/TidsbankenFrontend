@@ -22,10 +22,16 @@ const authorize = () => axios(`${process.env.REACT_APP_API_URL}/authorize`, {
     withCredentials: true
 });
 
+const user = (id: number) => axios(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+    method: "GET",
+    withCredentials: true
+});
+
 
 export default { 
     login, 
     login2fa, 
     logout, 
-    authorize 
+    authorize,
+    user 
 };
