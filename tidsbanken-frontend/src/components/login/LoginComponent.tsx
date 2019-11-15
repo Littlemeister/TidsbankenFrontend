@@ -24,23 +24,6 @@ const LoginComponent = (props: any) => {
         secondsLeft: 0,
     });
 
-    useEffect(() => {
-        getTimeLeft();
-        (inputRef.current as any).focus();
-    }, []);
-
-    useEffect(() => {
-        console.log(user);
-    }, [user])
-
-    useEffect(() => {
-        setMessage(`You have made 5 attempts please try again in ${ls.minutesLeft} minutes and ${ls.secondsLeft} seconds`);
-    }, [ls])
-
-    const timeLeft = (): number => {
-        return Number(localStorage.getItem("timeTo")) - Date.now();
-    }
-
     const timer = () => {
         let timer: number = window.setInterval(() => {
             let timeDelta: number = timeLeft();
@@ -63,18 +46,38 @@ const LoginComponent = (props: any) => {
         }, 1000);
     }
 
-    const getTimeLeft = () => {
-        if (localStorage.getItem("timeTo")) {
-            if (timeLeft() > 0) {
-                timer();
-                setBtnDisabled(true);
-                setError(true);
-            } else {
-                setBtnDisabled(false);
-                localStorage.removeItem("timeTo");
+    useEffect(() => {
+        const getTimeLeft = () => {
+            if (localStorage.getItem("timeTo")) {
+                if (timeLeft() > 0) {
+                    timer();
+                    setBtnDisabled(true);
+                    setError(true);
+                } else {
+                    setBtnDisabled(false);
+                    localStorage.removeItem("timeTo");
+                }
             }
         }
+        getTimeLeft();
+        (inputRef.current as any).focus();
+    }, []);
+
+    useEffect(() => {
+        console.log(user);
+    }, [user])
+
+    useEffect(() => {
+        setMessage(`You have made 5 attempts please try again in ${ls.minutesLeft} minutes and ${ls.secondsLeft} seconds`);
+    }, [ls])
+
+    const timeLeft = (): number => {
+        return Number(localStorage.getItem("timeTo")) - Date.now();
     }
+
+    
+
+    
 
     const setCounterInLocalStorage = () => {
         const timeTo = new Date().getTime() + (5 * 60000);

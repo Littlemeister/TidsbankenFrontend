@@ -3,16 +3,18 @@ import styles from '../../../css/Modal.module.css';
 
 const Modal = (props: any) => {
 
+    const { setDisplay } = props;
+
     useEffect(() => {
+        const hide = (event: KeyboardEvent) => {
+            if (event.keyCode === 27) {
+                setDisplay(false);
+            }
+        }
+
         document.addEventListener("keydown", hide);
         return (() => document.removeEventListener("keydown", hide));
-    }, [props.display]);
-
-    const hide = (event: KeyboardEvent) => {
-        if (event.keyCode === 27) {
-            props.setDisplay(false);
-        }
-    }
+    }, [setDisplay]);
 
     if (props.display) {
         return (

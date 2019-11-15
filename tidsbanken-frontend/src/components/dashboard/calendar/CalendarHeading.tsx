@@ -21,8 +21,8 @@ const CalendarHeading = (props: any) => {
                 <div className={styles.monthDropdown}>
                     <Dropdown title={format(props.selectedDate, 'MMMM yyyy')}>
                         <ul className={commonStyles.dropdown}>
-                            <li><a href="">test</a></li>
-                            <li><a href="">test</a></li>
+                            <li>This is my link..</li>
+                            <li>This is my link..</li>
                         </ul>
                     </Dropdown>
                 </div>

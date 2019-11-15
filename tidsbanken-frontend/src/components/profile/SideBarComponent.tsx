@@ -21,7 +21,7 @@ const SideBarComponent = (props: any) => {
             let response = await API.user(5); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHANGE USER ID
             if (response.status === 200) {
                 console.log(response.data);
-                setImg("https://sample-videos.com/img/Sample-jpg-image-500kb.jpg");
+                setImg(response.data.image);
                 setName(response.data.name);
                 setLastName(response.data.lastName);
                 setAdmin(response.data.isAdmin);   
