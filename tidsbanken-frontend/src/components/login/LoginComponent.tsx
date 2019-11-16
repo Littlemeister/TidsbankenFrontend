@@ -75,10 +75,6 @@ const LoginComponent = (props: any) => {
         return Number(localStorage.getItem("timeTo")) - Date.now();
     }
 
-    
-
-    
-
     const setCounterInLocalStorage = () => {
         const timeTo = new Date().getTime() + (5 * 60000);
         localStorage.setItem("timeTo", timeTo.toString());
