@@ -9,7 +9,7 @@ const MyEmptyComponent = (props: any) => {
 
     return (
         <>
-            <p>{user && user.name}</p>
+            <p>{user && user.name} asd</p>
             {showModal &&
                 <Modal display={showModal} setDisplay={setShowModal}>
                     <p>Modal</p>
