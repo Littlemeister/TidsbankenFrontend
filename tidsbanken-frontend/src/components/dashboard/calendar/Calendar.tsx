@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../../css/Calendar.module.css';
 import CalendarHeading from './CalendarHeading';
 import CalendarDisplay from './CalendarDisplay';
+import CalendarContext from './CalendarContext';
 
 import { 
     addMonths,
@@ -23,6 +24,7 @@ const Calendar = (props: any) => {
     }, []);
 
     return (
+        <CalendarContext.Provider value={{}}>
         <div className={styles.module}>
             <CalendarHeading
                 onPrev={decreaseMonth}
@@ -31,9 +33,16 @@ const Calendar = (props: any) => {
                 currentDate={currentDate}
                 selectedDate={selectedDate}
             />
-            <CalendarDisplay month={selectedDate} className={styles.calendarA} />
-            <CalendarDisplay month={addMonths(selectedDate, 1)} className={styles.calendarB} />
+            <CalendarDisplay 
+                month={selectedDate} 
+                className={styles.calendarA}
+            />
+            <CalendarDisplay 
+                month={addMonths(selectedDate, 1)} 
+                className={styles.calendarB} 
+            />
         </div>
+        </CalendarContext.Provider>
     );
 }
 

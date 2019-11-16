@@ -7,13 +7,10 @@ import { format } from 'date-fns';
 const CalendarDisplay = (props: any) => {
 
     const daysOfMonth = (date: Date): Date[] => {
-        // console.log(startOfMonth(getMonth(10)));
         return eachDayOfInterval({start: startOfMonth(date), end: endOfMonth(date)})
     }
 
     const weekdayOffset = (date: Date): number => {
-        // calculate the offset based on the first weekDay
-        // console.log('weekdayoffset: ', getDay(date));
         return getDay(date);
     }
 
