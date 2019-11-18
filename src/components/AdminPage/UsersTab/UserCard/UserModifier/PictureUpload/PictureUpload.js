@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import "./PictureUpload.css";
 
 class PictureUpload extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class PictureUpload extends Component {
         <form onSubmit={this.handleSubmit}>
           <input type="file" onChange={this.handleChange}></input>
           <div className="profilePic">
-            <img src={this.state.image} alt="Profile Picture" />
+            <img className="picture" src={this.state.image} alt="" />
           </div>
 
           {this.state.showUpload && (
