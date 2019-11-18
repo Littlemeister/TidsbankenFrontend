@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 const GeneralTab = props => {
   const [input, setInput] = useState({ maximumVacationDays: " " });
@@ -51,10 +52,10 @@ const GeneralTab = props => {
       <h1>General</h1>
       <h3>Current maximum vacation days: {data.maximumVacationDays}</h3>
       <form onSubmit={handleSubmit}>
-        <input
+        <TextField
           name="maximumVacationDays"
-          type="text"
-          placeholder="new maximum"
+          variant="outlined"
+          label="New Maximum"
           onChange={handleChange}
         />
         <Button variant="contained" type="submit">
