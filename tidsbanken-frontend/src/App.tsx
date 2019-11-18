@@ -9,6 +9,7 @@ import {
     faAngleUp,
     faCaretLeft,
     faCaretRight,
+    faCalendarPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
 // Own components
@@ -28,7 +29,8 @@ library.add(
     faAngleDown,
     faAngleUp,
     faCaretLeft,
-    faCaretRight
+    faCaretRight,
+    faCalendarPlus,
 )
 
 const App: React.FC = () => {
