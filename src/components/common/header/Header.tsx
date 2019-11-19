@@ -124,6 +124,7 @@ const Header = (props: any) => {
           </li>
         </ul>
       </Dropdown>
+      <Link to="/users">Users</Link>
     </header>
   );
 };

@@ -52,7 +52,7 @@ class RequestCard extends Component {
         >
           Request ID: {this.props.request.requestId}
           <br />
-          Dates: {this.props.request.dates}
+          Dates: {this.props.request.dates.toString()}
           <br />
           Status: {this.props.request.status}
           <br />
